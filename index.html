@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>カレンダー</title>
+    <link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+    <div class="calendar">
+        <div class="header">
+            <span id="current-month"></span>
+        </div>
+        <div class="month-navigation">
+            <button id="last-month">先月</button>
+            <p id="realtime"></p>
+            <button id="next-month">来月</button>
+        </div>
+        <table id="calendar-table">
+            <thead>
+                <tr>
+                    <th id="sun">日</th>
+                    <th id="moon">月</th>
+                    <th id="fire">火</th>
+                    <th id="water">水</th>
+                    <th id="wood">木</th>
+                    <th id="gold">金</th>
+                    <th id="dirt">土</th>
+                </tr>
+            </thead>
+            <tbody id="calendar-body"></tbody>
+        </table>
+        <button onclick="Screenshot()">画像で保存(png)</button>
+        <a id="ss" style="display: none;"></a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+    
+    <script src="https://cdn.rawgit.com/osamutake/japanese-holidays-js/v1.0.6/lib/japanese-holidays.min.js"></script>
+    <script src="calendar.js"></script>
+</body>
+</html>
