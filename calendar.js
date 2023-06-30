@@ -110,6 +110,7 @@ document.addEventListener('keydown', function(event) {
     if (document.activeElement.tagName == 'TEXTAREA'){
         return;
     }
+    console.log("a");
     keysPressed[event.key] = true;
 });
 document.addEventListener('keyup', function(event) {
@@ -122,7 +123,7 @@ function keyupdate() {
         return;
     }
     if (keysPressed['ArrowLeft']){
-        if (count==0 || count>4){
+        if (count==0 || count > 120 && count%25 == 0){
             if (keysPressed['y']){
                 currentYear--;
                 updateCalendar();
@@ -130,9 +131,10 @@ function keyupdate() {
                 toLastMonth();
             }
         }
+        console.log(count);
         count++;
     }else if (keysPressed['ArrowRight']) {
-        if (count==0 || count>4){
+        if (count==0 || count > 120 && count%25 == 0){
             if (keysPressed['y']){
                 currentYear++;
                 updateCalendar();
@@ -180,4 +182,4 @@ updateCalendar();
 // 時刻更新
 showClock();
 setInterval(showClock, 1000);
-setInterval(keyupdate, 100);
+setInterval(keyupdate, 4);
