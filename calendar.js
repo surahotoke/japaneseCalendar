@@ -11,6 +11,7 @@ let currentYear = currentDate.getFullYear();
 let currentMonth = currentDate.getMonth();
 // テキストエリアの内容を保持するためのオブジェクト
 const memoAreaContent = {};
+const keysPressed = {};
 // カレンダーの表示を更新
 function updateCalendar() {
     // 現在の年月を表示
@@ -104,14 +105,30 @@ function toNextMonth() {
 // ボタンで先月・来月へ
 lastMonthButton.addEventListener('click', toLastMonth);
 nextMonthButton.addEventListener('click', toNextMonth);
+// 左右矢印キーで先月・来月へ(yキーを押していると昨年・来年へ)
 document.addEventListener('keydown', function(event) {
-    if (document.activeElement.tagName != 'TEXTAREA'){
-        if (event.key == 'ArrowLeft'){
+    if (document.activeElement.tagName == 'TEXTAREA'){
+        return;
+    }
+    keysPressed[event.key] = true;
+    if (keysPressed['ArrowLeft']){
+        if (keysPressed['y']){
+            currentYear--;
+            updateCalendar();
+        }else{
             toLastMonth();
-        }else if (event.key == 'ArrowRight') {
+        }
+    }else if (keysPressed['ArrowRight']) {
+        if (keysPressed['y']){
+            currentYear++;
+            updateCalendar();
+        }else{
             toNextMonth();
         }
     }
+});
+document.addEventListener('keyup', function(event) {
+    keysPressed[event.key] = false;
 });
 // スクリーンショット機能
 function Screenshot() {
