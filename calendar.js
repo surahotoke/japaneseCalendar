@@ -112,6 +112,9 @@ document.addEventListener('keydown', function(event) {
     }
     keysPressed[event.key] = true;
 });
+document.addEventListener('keyup', function(event) {
+    keysPressed[event.key] = false;
+});
 // 矢印キー押→yキー押→yキー離とするとdocument.addEventListener関数から外れる仕様から逃れるため
 function keyupdate() {
     if (document.activeElement.tagName == 'TEXTAREA'){
@@ -141,9 +144,6 @@ function keyupdate() {
         i=0;
     }
 }
-document.addEventListener('keyup', function(event) {
-    keysPressed[event.key] = false;
-});
 // スクリーンショット機能
 function Screenshot() {
     html2canvas(document.body, {
