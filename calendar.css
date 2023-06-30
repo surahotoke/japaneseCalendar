@@ -1,4 +1,3 @@
-/* CSS スタイルの定義 */
 * {
     user-select: none;
 }
@@ -109,9 +108,11 @@ td.saturday {
     height: 0;
     text-align: right;
 }
-
 .calendar-container {
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+#save-to-img {
+    padding: 10px;
 }
