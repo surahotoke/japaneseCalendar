@@ -111,22 +111,36 @@ document.addEventListener('keydown', function(event) {
         return;
     }
     keysPressed[event.key] = true;
-    if (keysPressed['ArrowLeft']){
-        if (keysPressed['y']){
-            currentYear--;
-            updateCalendar();
-        }else{
-            toLastMonth();
-        }
-    }else if (keysPressed['ArrowRight']) {
-        if (keysPressed['y']){
-            currentYear++;
-            updateCalendar();
-        }else{
-            toNextMonth();
-        }
-    }
 });
+// 矢印キー押→yキー押→yキー離とするとdocument.addEventListener関数から外れる仕様から逃れるため
+function keyupdate() {
+    if (document.activeElement.tagName == 'TEXTAREA'){
+        return;
+    }
+    if (keysPressed['ArrowLeft']){
+        if (i==0 || i>3){
+            if (keysPressed['y']){
+                currentYear--;
+                updateCalendar();
+            }else{
+                toLastMonth();
+            }
+        }
+        i++;
+    }else if (keysPressed['ArrowRight']) {
+        if (i==0 || i>3){
+            if (keysPressed['y']){
+                currentYear++;
+                updateCalendar();
+            }else{
+                toNextMonth();
+            }
+        }
+        i++;
+    }else {
+        i=0;
+    }
+}
 document.addEventListener('keyup', function(event) {
     keysPressed[event.key] = false;
 });
@@ -163,4 +177,5 @@ function showClock() {
 updateCalendar();
 // 時刻更新
 showClock();
-setInterval(showClock,1000);
+setInterval(showClock, 1000);
+setInterval(keyupdate, 100);
