@@ -85,27 +85,38 @@ function specialDay(calendarCell, calendarContainer, day, totalDays, i, j) {
         calendarCell.classList.add('today');
     }
 }
-// ボタンで先月・来月へ
-lastMonthButton.addEventListener('click', () => {
+function toLastMonth() {
     currentMonth--;
     if (currentMonth < 0) {
         currentYear--;
         currentMonth = 11;
     }
     updateCalendar();
-});
-nextMonthButton.addEventListener('click', () => {
+}
+function toNextMonth() {
     currentMonth++;
     if (currentMonth > 11) {
         currentYear++;
         currentMonth = 0;
     }
     updateCalendar();
+}
+// ボタンで先月・来月へ
+lastMonthButton.addEventListener('click', toLastMonth);
+nextMonthButton.addEventListener('click', toNextMonth);
+document.addEventListener('keydown', function(event) {
+    if (document.activeElement.tagName != 'TEXTAREA'){
+        if (event.key == 'ArrowLeft'){
+            toLastMonth();
+        }else if (event.key == 'ArrowRight') {
+            toNextMonth();
+        }
+    }
 });
 // スクリーンショット機能
 function Screenshot() {
     html2canvas(document.body, {
-      onrendered: function(canvas) {
+        onrendered: function(canvas) {
         const imgData = canvas.toDataURL();
         const link = document.getElementById("ss");
         link.href = imgData;
@@ -113,7 +124,7 @@ function Screenshot() {
         link.click();
       }
     });
-  }
+}
 // 現在時刻表示機能
 function twoDigit(num) {
     let ret;
