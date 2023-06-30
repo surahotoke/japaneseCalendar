@@ -110,7 +110,6 @@ document.addEventListener('keydown', function(event) {
     if (document.activeElement.tagName == 'TEXTAREA'){
         return;
     }
-    console.log("a");
     keysPressed[event.key] = true;
 });
 document.addEventListener('keyup', function(event) {
@@ -131,7 +130,6 @@ function keyupdate() {
                 toLastMonth();
             }
         }
-        console.log(count);
         count++;
     }else if (keysPressed['ArrowRight']) {
         if (count==0 || count > 120 && count%25 == 0){
