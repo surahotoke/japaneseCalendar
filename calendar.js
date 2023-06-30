@@ -11,7 +11,6 @@ let currentYear = currentDate.getFullYear();
 let currentMonth = currentDate.getMonth();
 // テキストエリアの内容を保持するためのオブジェクト
 const memoAreaContent = {};
-const keysPressed = {};
 // カレンダーの表示を更新
 function updateCalendar() {
     // 現在の年月を表示
@@ -106,6 +105,7 @@ function toNextMonth() {
 lastMonthButton.addEventListener('click', toLastMonth);
 nextMonthButton.addEventListener('click', toNextMonth);
 // 左右矢印キーで先月・来月へ(yキーを押していると昨年・来年へ)
+const keysPressed = {};
 document.addEventListener('keydown', function(event) {
     if (document.activeElement.tagName == 'TEXTAREA'){
         return;
@@ -116,12 +116,13 @@ document.addEventListener('keyup', function(event) {
     keysPressed[event.key] = false;
 });
 // 矢印キー押→yキー押→yキー離とするとdocument.addEventListener関数から外れる仕様から逃れるため
+let count = 0;
 function keyupdate() {
     if (document.activeElement.tagName == 'TEXTAREA'){
         return;
     }
     if (keysPressed['ArrowLeft']){
-        if (i==0 || i>3){
+        if (count==0 || count>4){
             if (keysPressed['y']){
                 currentYear--;
                 updateCalendar();
@@ -129,9 +130,9 @@ function keyupdate() {
                 toLastMonth();
             }
         }
-        i++;
+        count++;
     }else if (keysPressed['ArrowRight']) {
-        if (i==0 || i>3){
+        if (count==0 || count>4){
             if (keysPressed['y']){
                 currentYear++;
                 updateCalendar();
@@ -139,9 +140,9 @@ function keyupdate() {
                 toNextMonth();
             }
         }
-        i++;
+        count++;
     }else {
-        i=0;
+        count=0;
     }
 }
 // スクリーンショット機能
@@ -173,6 +174,7 @@ function showClock() {
     let msg = nowHour + ":" + nowMin + ":" + nowSec;
     document.getElementById("realtime").innerHTML = msg;
 }
+
 // カレンダーの表示を初期化
 updateCalendar();
 // 時刻更新
